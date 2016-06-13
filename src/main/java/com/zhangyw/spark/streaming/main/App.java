@@ -36,7 +36,7 @@ public class App {
 //		jssc.checkpoint("");
 		
 		Map<String, String> kafkaParams = new HashMap<String, String>();
-        kafkaParams.put("zookeeper.connect", "192.168.58.130:2181");
+        kafkaParams.put("zookeeper.connect", "192.168.1.106:2181");
         kafkaParams.put("zookeeper.connection.timeout.ms", "10000");
 //        kafkaParams.put("fetch.message.max.bytes", "1073741824");
 //        kafkaParams.put("auto.offset.reset", "largest");
@@ -44,14 +44,7 @@ public class App {
         Map topicMap = new HashMap<String, Integer>();
         topicMap.put("test", 2);
         JavaPairDStream<String,byte[]> streams = KafkaUtils.createStream(jssc,String.class,byte[].class,StringDecoder.class,DefaultDecoder.class,kafkaParams,topicMap,StorageLevel.MEMORY_AND_DISK_SER_2());
-//        JavaDStream<String> jdstream = 
-        streams.foreachRDD(new Function2() {
-			public Object call(Object v1, Object v2) throws Exception {
-				System.out.println(v1.toString());
-				System.out.println(v2.toString());
-				return null;
-			}
-		});
+        streams.print();
         jssc.start();
         jssc.awaitTermination();
 	}
