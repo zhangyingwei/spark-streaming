@@ -54,6 +54,7 @@ public class App2 {
 		// Duration slideInterval = new Duration(slideInSeconds * 1000);
 
 		SparkConf sparkConf = new SparkConf().setAppName("JavaKafkaWordCount");
+		sparkConf.setMaster("local[2]");
 		JavaStreamingContext jssc = new JavaStreamingContext(sparkConf,new Duration(2000));
 		// JavaDStream<SparkFlumeEvent> flumeStream = sc.flumeStream(host,
 		// port);
